@@ -43,14 +43,17 @@ function renderApps() {
 
     const name = document.createElement("span");
     name.className = "app-name";
+    name.style.display = "block";
     name.textContent = app.name;
 
     const desc = document.createElement("span");
     desc.className = "app-desc";
+    desc.style.display = "block";
     desc.textContent = app.desc;
 
     const domain = document.createElement("span");
     domain.className = "app-domain";
+    domain.style.display = "block";
     domain.textContent = app.domain;
 
     meta.append(name, desc, domain);
