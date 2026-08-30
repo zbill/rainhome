@@ -232,14 +232,20 @@ body {
 
 .app-icon {
   flex-shrink: 0;
-  width: 60px;
-  height: 60px;
-  border-radius: 16px;
+  width: 56px;
+  height: 56px;
+  border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
+  font-size: 28px;
   color: #fff;
+}
+
+.app-title-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .app-card:nth-child(odd) .app-icon {
