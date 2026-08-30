@@ -38,12 +38,14 @@ function renderApps() {
     icon.className = "app-icon";
     icon.textContent = app.icon;
 
-    const meta = document.createElement("span");
-    meta.className = "app-meta";
-
     const name = document.createElement("span");
     name.className = "app-name";
     name.textContent = app.name;
+
+    /* 图标 + 标题同一行 */
+    const titleRow = document.createElement("div");
+    titleRow.className = "app-title-row";
+    titleRow.append(icon, name);
 
     const desc = document.createElement("span");
     desc.className = "app-desc";
@@ -53,8 +55,7 @@ function renderApps() {
     domain.className = "app-domain";
     domain.textContent = app.domain;
 
-    meta.append(name, desc, domain);
-    card.append(icon, meta);
+    card.append(titleRow, desc, domain);
     container.appendChild(card);
   });
 
