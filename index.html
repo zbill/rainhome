@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rainlet 应用中心 - 精选好用的学习小工具" />
+  <title>Rainlet 应用中心</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="bg-deco" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <header class="site-header">
+    <a href="/" class="brand">
+      <span class="brand-mark">R</span>
+      <span class="brand-name">Rainlet</span>
+    </a>
+    <nav class="site-nav">
+      <span class="nav-count">
+        <span id="appCount">0</span> 款应用
+      </span>
+      <a class="nav-link" href="mailto:zbill2021@gmail.com">联系我们</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <p class="hero-kicker">RAINLET · 应用中心</p>
+      <h1 class="hero-title">精选好用的<br/><em>学习小工具</em></h1>
+      <p class="hero-sub">这里汇集了一些轻巧实用的小应用，点开即用，无需下载。</p>
+    </section>
+
+    <section class="apps" aria-label="应用列表">
+      <!-- 应用卡片由 js/apps.js 动态渲染 -->
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Rainlet · 皖ICP备XXXXXXXX号</p>
+  </footer>
+
+  <script src="js/apps.js"></script>
+</body>
+</html>
