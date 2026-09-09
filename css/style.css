@@ -288,6 +288,16 @@ body {
   font-size: 13px;
 }
 
+.icp-link {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.icp-link:hover {
+  color: var(--brand);
+  text-decoration: underline;
+}
+
 /* ---------- 加载态 ---------- */
 .loading {
   grid-column: 1 / -1;
