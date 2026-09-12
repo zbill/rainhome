@@ -10,7 +10,7 @@
   <rect width="128" height="128" rx="28" fill="url(#bg)"/>
 
   <!-- 白色 R 字母 -->
-  <text x="64" y="88" text-anchor="middle" dominant-baseline="middle"
+  <text x="64" y="72" text-anchor="middle" dominant-baseline="middle"
         font-family="'Segoe UI', Arial, Helvetica, sans-serif"
-        font-size="76" font-weight="800" fill="#ffffff">R</text>
+        font-size="90" font-weight="800" fill="#ffffff">R</text>
 </svg>
