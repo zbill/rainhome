@@ -1,0 +1,31 @@
+-- CloudBase PostgreSQL 应用状态表（math-quiz）
+-- 执行位置：云开发控制台 → 数据库 → SQL 编辑器
+-- 存储模型：doc_id 主键 + payload jsonb，一个「文档」一行
+--   users        : 全部使用者档案（登录页列出所有用户）
+--   u_<uid>      : 单个用户的答题记录/错题本/每日统计/解锁阶段/设置
+-- 访问身份：前端使用 Publishable Key，对应 anon 角色；
+--   这里通过 GRANT + RLS 显式放开 anon 的读写，使纯前端可无损同步。
+
+CREATE TABLE IF NOT EXISTS public.app_state (
+  doc_id  text PRIMARY KEY,
+  payload jsonb NOT NULL DEFAULT '{}'::jsonb
+);
+
+ALTER TABLE public.app_state ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS app_state_select ON public.app_state;
+CREATE POLICY app_state_select ON public.app_state
+  FOR SELECT TO anon USING (true);
+
+DROP POLICY IF EXISTS app_state_insert ON public.app_state;
+CREATE POLICY app_state_insert ON public.app_state
+  FOR INSERT TO anon WITH CHECK (true);
+
+DROP POLICY IF EXISTS app_state_update ON public.app_state;
+CREATE POLICY app_state_update ON public.app_state
+  FOR UPDATE TO anon USING (true) WITH CHECK (true);
+
+GRANT SELECT, INSERT, UPDATE ON public.app_state TO anon;
+
+-- 验证：应返回空表且无报错
+-- SELECT * FROM public.app_state;

@@ -1,0 +1,503 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.clock-face, .hand, .control-btn {
+  touch-action: none;
+}
+
+button, [role="button"] {
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  max-width: 650px;
+  width: 100%;
+  background-color: white;
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  padding: 40px 30px;
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* 返回 Rainlet 首页链接（页面底部） */
+.home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 28px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #8848f9;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.home-link:hover {
+  opacity: 1;
+  transform: translateX(-2px);
+}
+
+h1 {
+  color: #8848f9;
+  font-size: 2.5rem;
+  margin-bottom: 35px;
+  font-weight: 800;
+}
+
+h2 {
+  color: #202020;
+  margin-bottom: 25px;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.mode-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.mode-btn {
+  padding: 18px 35px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #8848f9 0%, #7c3aed 100%);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mode-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(136, 72, 249, 0.4);
+}
+
+.mode-btn:active {
+  transform: translateY(0);
+}
+
+.clock-container {
+  display: block;
+}
+
+.clock-face {
+  position: relative;
+  margin: 30px auto;
+  border: 4px solid #e0dfdf;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.clock-inner-ring {
+  position: absolute;
+  inset: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(127, 127, 127, 0.3);
+  pointer-events: none;
+}
+
+.clock-number {
+  position: absolute;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #202020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.clock-tick {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  transform-origin: 50% 50%;
+}
+
+.hour-tick::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  width: 3px;
+  height: 12px;
+  margin-left: -1.5px;
+  background-color: #202020;
+}
+
+.minute-tick::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  width: 1px;
+  height: 6px;
+  margin-left: -0.5px;
+  background-color: rgba(127, 127, 127, 0.5);
+}
+
+/* 表盘级触摸容器 - 统一处理所有指针拖动 */
+.clock-face {
+  touch-action: none;
+  cursor: grab;
+}
+.clock-face:active {
+  cursor: grabbing;
+}
+
+.clock-hand {
+  position: absolute;
+  transform-origin: 50% 100%;
+  left: 50%;
+  bottom: 50%;
+  pointer-events: none; /* 让事件穿透到 clock-face */
+}
+
+/* ===== 时针：适中针身 + 大尖头三角头 ===== */
+.hour-hand {
+  width: 8px;           /* 针身适中不粗 */
+  height: 25%;
+  margin-left: -4px;
+  background-color: #1a1a1a;
+  z-index: 10;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+/* 时针顶端大尖头三角（底宽 18px > 针身 8px，顶尖朝上对准刻度） */
+.hour-hand::before {
+  content: '';
+  position: absolute;
+  top: -12px;           /* 三角头超出针身顶端的距离 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;          /* 三角头底宽 18px（针身 8px 的 2.25 倍） */
+  height: 14px;         /* 三角头高 */
+  background-color: #1a1a1a;
+  /* 尖头三角：顶尖 50% 0%，底边 0-100% 100% */
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== 分针：适中针身 + 尖头三角头 ===== */
+.minute-hand {
+  width: 6px;
+  height: 35%;
+  margin-left: -3px;
+  background-color: #2a2a2a;
+  z-index: 20;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+.minute-hand::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;          /* 底宽 14px（针身 6px 的 2.3 倍） */
+  height: 12px;
+  background-color: #2a2a2a;
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+/* ===== 秒针：细针身 + 小红尖头三角 ===== */
+.second-hand {
+  width: 3px;
+  height: 42%;
+  margin-left: -1.5px;
+  background-color: #f4165f;
+  z-index: 30;
+  border-radius: 2px;
+}
+.second-hand::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;           /* 小红三角底宽 8px（针身 3px 的 2.7 倍） */
+  height: 7px;
+  background-color: #f4165f;
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+/* 拖动时的视觉反馈 */
+.drag-indicator {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px dashed rgba(136, 72, 249, 0.4);
+  background: rgba(136, 72, 249, 0.08);
+  pointer-events: none;
+  z-index: 50;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+}
+
+.clock-center {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: #202020;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 40;
+  border: 2px solid white;
+}
+
+.time-display {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 25px 0;
+  color: #202020;
+  letter-spacing: 2px;
+}
+
+.time-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 25px 0;
+  align-items: center;
+}
+
+.time-input {
+  width: 80px;
+  padding: 12px 8px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  border: 2px solid #e0dfdf;
+  border-radius: 10px;
+  background-color: white;
+  color: #202020;
+  transition: all 0.3s ease;
+}
+
+.time-input:focus {
+  outline: none;
+  border-color: #8848f9;
+  box-shadow: 0 0 0 3px rgba(136, 72, 249, 0.2);
+}
+
+.time-input:disabled {
+  background-color: #f6f6f6;
+  border-color: #e0dfdf;
+  cursor: not-allowed;
+  color: #7f7f7f;
+}
+
+.confirm-btn {
+  padding: 14px 40px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f4165f 0%, #db1456 100%);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 25px;
+  margin-right: 10px;
+}
+
+.confirm-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(244, 22, 95, 0.4);
+}
+
+.confirm-btn:active {
+  transform: translateY(0);
+}
+
+.back-btn {
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  background-color: #7f7f7f;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.back-btn:hover {
+  background-color: #666;
+  transform: translateY(-1px);
+}
+
+.back-btn:active {
+  transform: translateY(0);
+}
+
+.message {
+  font-size: 1.2rem;
+  margin: 20px 0;
+  padding: 15px 25px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.success {
+  background-color: #dcfce7;
+  color: #166534;
+  border: 2px solid #4ade80;
+}
+
+.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 2px solid #f87171;
+}
+
+.chances {
+  font-size: 1.1rem;
+  margin: 15px 0;
+  color: #7f7f7f;
+  font-weight: 600;
+}
+
+.hand-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 25px 0;
+  align-items: center;
+}
+
+.control-group {
+  display: flex;
+  gap: 10px;
+}
+
+.control-btn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #8848f9 0%, #7c3aed 100%);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;
+}
+
+.control-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(136, 72, 249, 0.4);
+}
+
+.control-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 30px 20px;
+    border-radius: 25px;
+  }
+  
+  h1 {
+    font-size: 2.2rem;
+  }
+  
+  h2 {
+    font-size: 1.4rem;
+  }
+  
+  .clock-number {
+    font-size: 1rem;
+    width: 28px;
+    height: 28px;
+  }
+  
+  .time-display {
+    font-size: 1.8rem;
+  }
+  
+  .time-input {
+    width: 70px;
+    font-size: 1.2rem;
+    padding: 10px 6px;
+  }
+  
+  .mode-btn {
+    padding: 16px 28px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 25px 15px;
+    border-radius: 20px;
+  }
+  
+  h1 {
+    font-size: 1.9rem;
+  }
+  
+  h2 {
+    font-size: 1.3rem;
+  }
+  
+  .clock-number {
+    font-size: 0.9rem;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .time-display {
+    font-size: 1.6rem;
+  }
+  
+  .time-input {
+    width: 60px;
+    font-size: 1.1rem;
+    padding: 10px 6px;
+  }
+  
+  .mode-btn {
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+}

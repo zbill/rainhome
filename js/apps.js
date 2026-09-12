@@ -8,15 +8,15 @@ const APPS = [
     name: "数学口算",
     desc: "针对小学生的口算训练工具，可自由选择数字范围与难度，反复练习、即时判对。",
     icon: "🧮",
-    url: "https://math-quiz.rainlet.cn",
-    domain: "math-quiz.rainlet.cn"
+    url: "/quiz/",
+    domain: "rainlet.cn/quiz"
   },
   {
     name: "时钟学习",
     desc: "帮助孩子认识时钟、理解时分读法的小游戏，直观、有趣、易上手。",
     icon: "⏰",
-    url: "https://clock.rainlet.cn",
-    domain: "clock.rainlet.cn"
+    url: "/clock/",
+    domain: "rainlet.cn/clock"
   }
 ];
 
