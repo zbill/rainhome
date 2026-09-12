@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4a6cff"/>
+      <stop offset="1" stop-color="#7c5cff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 圆角渐变底（与主站 brand-mark 一致） -->
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+
+  <!-- 白色 R 字母 -->
+  <text x="64" y="88" text-anchor="middle" dominant-baseline="middle"
+        font-family="'Segoe UI', Arial, Helvetica, sans-serif"
+        font-size="76" font-weight="800" fill="#ffffff">R</text>
+</svg>
