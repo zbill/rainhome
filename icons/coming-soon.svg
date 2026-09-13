@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b8c0d4"/>
+      <stop offset="1" stop-color="#8a95b5"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 圆角灰底（与正式应用的蓝紫渐变底做视觉区分） -->
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+
+  <!-- 灯泡（白色） -->
+  <g stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.92">
+    <path d="M64 34 C48 34, 36 46, 36 62 C36 74, 44 82, 50 86 L50 94 L78 94 L78 86 C84 82, 92 74, 92 62 C92 46, 80 34, 64 34 Z"/>
+    <line x1="54" y1="100" x2="74" y2="100"/>
+    <line x1="56" y1="106" x2="72" y2="106"/>
+  </g>
+</svg>

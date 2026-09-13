@@ -30,7 +30,7 @@ cpSync(join(root, 'clock', 'dist'), join(dist, 'clock'), { recursive: true })
 cpSync(join(root, 'quiz', 'dist'), join(dist, 'quiz'), { recursive: true })
 
 // 5. 拷贝主站静态文件（部署在根路径 /）
-for (const item of ['index.html', 'css', 'js', 'favicon.svg', 'robots.txt']) {
+for (const item of ['index.html', 'css', 'js', 'icons', 'favicon.svg', 'robots.txt']) {
   if (existsSync(join(root, item))) {
     cpSync(join(root, item), join(dist, item), { recursive: true })
   }
