@@ -5,7 +5,7 @@ import { Icon } from '../components/Icon';
 
 export default function StatsScreen({ user, goPractice }) {
   const [tab, setTab] = useState('today'); // today | history
-  const records = recordStore.byUser(user?.id).sort((a, b) => b.end.localeCompare(a.end));
+  const records = recordStore.byUser(user?.uid).sort((a, b) => b.end.localeCompare(a.end));
   const todayStr = fmtDate(new Date());
   const todayRecords = records.filter((r) => r.date === todayStr);
 
@@ -46,7 +46,7 @@ export default function StatsScreen({ user, goPractice }) {
 }
 
 function TodayPanel({ sum, todayRecords, user, goPractice }) {
-  const wrongs = wrongStore.byUser(user?.id).filter((w) => isToday(w.lastWrongAt));
+  const wrongs = wrongStore.byUser(user?.uid).filter((w) => isToday(w.lastWrongAt));
   return (
     <div>
       {sum ? (

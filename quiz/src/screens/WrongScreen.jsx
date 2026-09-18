@@ -4,11 +4,11 @@ import { remakeQuestion } from '../lib/questionEngine';
 import { Icon } from '../components/Icon';
 
 export default function WrongScreen({ user }) {
-  const [wrongs, setWrongs] = useState(() => wrongStore.byUser(user?.id));
+  const [wrongs, setWrongs] = useState(() => wrongStore.byUser(user?.uid));
   const [mode, setMode] = useState('list'); // list | practice
   const [practice, setPractice] = useState(null); // { index, questions, results }
 
-  const refresh = () => setWrongs(wrongStore.byUser(user?.id));
+  const refresh = () => setWrongs(wrongStore.byUser(user?.uid));
 
   const startPractice = () => {
     if (!wrongs.length) return;
